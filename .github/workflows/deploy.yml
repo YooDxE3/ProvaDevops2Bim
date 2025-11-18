@@ -1,1 +1,31 @@
+name: Prova DevOps
 
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Config das Pages
+        uses: actions/configure-pages@v5
+
+      - name: Push dos arquivos do site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+
+      - name: Deploy
+        uses: actions/deploy-pages@v4
